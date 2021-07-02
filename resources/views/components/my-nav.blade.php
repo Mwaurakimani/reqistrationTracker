@@ -14,8 +14,11 @@
     <p
         style="
         font-size: 1em;
+        padding-right: 20px;
 "
     >
-        Welcome Peter Kimani
+        @auth()
+            Welcome {{ Auth::user()->name }}
+        @endauth
     </p>
 </nav>

@@ -128,40 +128,36 @@ nav p {
 }
 
 .hospital_table thead tr th:nth-child(2) {
-  width: 13%;
+  width: 5%;
 }
 
 .hospital_table thead tr th:nth-child(3) {
-  width: 26%;
+
 }
 
 .hospital_table thead tr th:nth-child(4) {
-  width: 20%;
+  width: 15%;
   text-align: center;
 }
 
-.hospital_table thead tr > th:last-child {
-  width: 11%;
+.hospital_table tbody tr td:nth-child(6) {
+    width: 20%;
 }
 
-.hospital_table tbody tr td:nth-child(4) {
-  text-align: center;
-}
-
-.hospital_table tbody tr > td:nth-child(6) {
-  width: 100%;
+.hospital_table tbody tr > td:nth-child(7) {
+  width: auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
-.hospital_table tbody tr > td:nth-child(6) div {
-  width: 35px;
-  height: 40px;
+.hospital_table tbody tr > td:nth-child(7) div {
+  width: 30px;
+  height: 30px;
   padding-top: 3px;
 }
 
-.hospital_table tbody tr > td:nth-child(6) div img {
-  width: 35px;
+.hospital_table tbody tr > td:nth-child(7) div img {
+  width: 30px;
   display: block;
 }

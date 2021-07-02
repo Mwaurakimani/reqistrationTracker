@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $heading = "Dashboard";
-    return view('dashboard',[
+    return view('auth.SignIn',[
         'heading' => 'Dashboard'
     ]);
 });
@@ -41,13 +42,10 @@ Route::get('/Entries', function () {
     ]);
 })->middleware(['auth'])->name('Entries');
 
-Route::get('/Administrators', function () {
-    $heading = "Administrators";
-    return view('Administrators',[
-        'heading' => 'Administrators'
-    ]);
-})->middleware(['auth'])->name('Administrators');
 
+Route::get('/Administrators', [AdminController::class,'get_all'])->middleware(['auth'])->name('Administrators');
+Route::get('/Administrators/{id}', [AdminController::class,'show'])->middleware(['auth'])->name('Administrators.user');
+Route::put('/Administrators/{id}', [AdminController::class,'store'])->middleware(['auth'])->name('Administrators.userForm');
 
 
 
