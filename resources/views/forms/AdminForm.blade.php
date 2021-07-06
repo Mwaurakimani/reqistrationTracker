@@ -11,8 +11,17 @@
     <x-sub-nav>
     </x-sub-nav>
     <div class="action_bar">
-        <button type="submit" form="birthEntry" value="submit" style="background-color: rgb(235, 151, 41);">Update</button>
-        <button type="submit" form="birthEntry" value="submit" style="background-color: rgb(248, 78, 78);">Delete</button>
+        @empty($user)
+            <button type="submit" form="birthEntry" value="submit" style="background-color: rgb(41,235,51);">Create
+            </button>
+
+        @else
+            <button type="submit" form="birthEntry" value="submit" style="background-color: rgb(235, 151, 41);">Update
+            </button>
+            <button type="submit" form="birthEntry" value="submit" style="background-color: rgb(248, 78, 78);">Delete
+            </button>
+        @endempty
+
     </div>
 
     <div class="entries_form">
@@ -33,119 +42,67 @@
             @endforeach
         @endif
 
-            @if (session()->has('success'))
-                <div class="alert alert-info"
+        @if (session()->has('success'))
+            <div class="alert alert-success"
 
-                >{{ session('success') }}</div>
-            @endif
+            >{{ session('success') }}</div>
+        @endif
 
         @empty($user)
 
-            <form action="#" id="birthEntry" method="POST">
+            <form action="/Administrators/create" id="birthEntry" method="POST">
                 @csrf
-                @method('PUT')
-                <div class="sub_form_1">
-                    <h4>Record Details</h4>
-                    <div class="input_elem_holder grid-elem-2">
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">First Name</label>
-                            <input type="text" class="form-control" name="firstName" value="{{old('firstName')}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="formGroupExampleInput2">Last Name</label>
-                            <input type="text" class="form-control" name="childMiddleName">
-                        </div>
-                    </div>
-                    <div class="input_elem_holder">
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">Email</label>
-                            <input type="text" class="form-control" name="childFirstName">
-                        </div>
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">Password</label>
-                            <input type="text" class="form-control" name="childFirstName">
-                        </div>
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">Role</label>
-                            <input type="text" class="form-control" name="childFirstName">
-                        </div>
-                    </div>
-                </div>
-                <div class="sub_form_2">
-                    <h4>Sub Details</h4>
-                    <div class="input_elem_holder">
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">Date Created</label>
-                            <input type="text" class="form-control" name="childFirstName">
-                        </div>
-                    </div>
-                    <div class="input_elem_holder">
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">Date Modified</label>
-                            <input type="text" class="form-control" name="childFirstName">
-                        </div>
-                    </div>
-                    <div class="input_elem_holder">
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">Created By</label>
-                            <input type="text" class="form-control" name="childFirstName">
-                        </div>
-                    </div>
-                    <div class="input_elem_holder">
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">Modified By</label>
-                            <input type="text" class="form-control" name="childFirstName">
-                        </div>
-                    </div>
-                    <div class="input_elem_holder">
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">Registered hospital</label>
-                            <input type="text" class="form-control" name="childFirstName">
-                        </div>
-                    </div>
-                </div>
-            </form>
         @else
             <form action="#" id="birthEntry" method="POST">
                 @csrf
                 @method('PUT')
+        @endempty
                 <div class="sub_form_1">
                     <h4>Record Details</h4>
                     <div class="input_elem_holder grid-elem-2">
                         <div class="form-group">
                             <label for="formGroupExampleInput">First Name</label>
-                            <input type="text" class="form-control" name="firstName" value="{{$user->firstName}}">
+                            <input type="text" class="form-control" name="firstName"
+                                   value="{{ $user ? $user->firstName : "" }}">
                         </div>
                         <div class="form-group">
                             <label for="formGroupExampleInput2">Last Name</label>
-                            <input type="text" class="form-control" name="lastName" value=" {{$user->lastName}}">
+                            <input type="text" class="form-control" name="lastName"
+                                   value=" {{$user ?  $user->lastName : "" }}">
                         </div>
                     </div>
                     <div class="input_elem_holder">
                         <div class="form-group">
                             <label for="formGroupExampleInput">Email</label>
-                            <input type="text" class="form-control" name="email" value=" {{$user->email}}">
+                            <input type="text" class="form-control" name="email"
+                                   value=" {{$user ?  $user->email : "" }}">
                         </div>
                         <div class="form-group">
                             <label for="formGroupExampleInput">Role</label>
-                            <input type="text" class="form-control" name="Role" value="{{$user->Role}}">
+                            <input type="text" class="form-control" name="Role"
+                                   value="{{$user ? $user->Role : "" }}">
                         </div>
                     </div>
                 </div>
                 <div class="sub_form_2">
                     <h4>Sub Details</h4>
-                    <div class="input_elem_holder">
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">Date Created</label>
-                            <input type="text" class="form-control" name="created_at" value="{{$user->created_at}}">
+
+                    @unless(!$user)
+                        <div class="input_elem_holder">
+                            <div class="form-group">
+                                <label for="formGroupExampleInput">Date Created</label>
+                                <input type="text" class="form-control" name="created_at"
+                                       value="{{$user ?  $user->created_at : "" }}">
+                            </div>
                         </div>
-                    </div>
-                    <div class="input_elem_holder">
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">Date Modified</label>
-                            <input type="text" class="form-control" name="updated_at" value="{{$user->updated_at}}">
+                        <div class="input_elem_holder">
+                            <div class="form-group">
+                                <label for="formGroupExampleInput">Date Modified</label>
+                                <input type="text" class="form-control" name="updated_at"
+                                       value="{{$user ?  $user->updated_at : "" }}">
+                            </div>
                         </div>
-                    </div>
+                    @endunless
                     <div class="input_elem_holder">
                         <div class="form-group">
                             <label for="formGroupExampleInput">Registered hospital</label>
@@ -154,6 +111,6 @@
                     </div>
                 </div>
             </form>
-        @endempty
+
     </div>
 @endsection

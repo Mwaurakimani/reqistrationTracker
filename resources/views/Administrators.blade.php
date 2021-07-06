@@ -14,6 +14,9 @@
         <div class="button_field">
             <button type="submit" form="Search_Item" value="submit">Filters By:</button>
         </div>
+        <div class="button_field">
+            <a href="/Administrators/create" >Add New</a>
+        </div>
     </form>
 
 
