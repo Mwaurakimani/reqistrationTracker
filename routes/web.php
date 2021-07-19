@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EntriesController;
+use App\Http\Controllers\HospitalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,23 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//dash board redirect
 Route::get('/', function () {
-    $heading = "Dashboard";
-    return view('auth.SignIn', [
-        'heading' => 'Dashboard'
-    ]);
+    return view('home');
 });
 
+Route::get('/Dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+Route::resource('Hospital', HospitalController::class)->middleware(['auth']);
+
+Route::resource('Administrators', AdminController::class)->middleware(['auth']);
+
+Route::resource('Entries', EntriesController::class)->middleware(['auth']);
 
 
-require __DIR__ . '/navigation.php';
+require __DIR__.'/auth.php';
 
-
-
-
-require __DIR__ . '/admin.php';
-
-
-
-require __DIR__ . '/auth.php';

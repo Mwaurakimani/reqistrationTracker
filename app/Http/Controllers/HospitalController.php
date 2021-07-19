@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Models\Hospital;
+use Session;
 use Illuminate\Http\Request;
 
 class HospitalController extends Controller
@@ -13,7 +16,9 @@ class HospitalController extends Controller
      */
     public function index()
     {
-        //
+        $hospitals = Hospital::all();
+
+        return view('App.Hospital.index')->with('hospitals',$hospitals);
     }
 
     /**
@@ -23,7 +28,7 @@ class HospitalController extends Controller
      */
     public function create()
     {
-        //
+        return view('App.Hospital.create');
     }
 
     /**
@@ -34,7 +39,29 @@ class HospitalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'Name' => 'required',
+            'Notes' => 'nullable|max:250',
+            'Region' => 'required',
+            'SubRegion' => 'required',
+        ]);
+
+        $hospital = new Hospital();
+
+
+
+        $hospital->Name = $validated['Name'];
+        $hospital->Notes = $validated['Notes'];
+        $hospital->Region = $validated['Region'];
+        $hospital->SubRegion = $validated['SubRegion'];
+
+        $hospital->save();
+
+
+
+        Session::flash("message","Hospital record was created successfully!");
+
+        return redirect('/Hospital');
     }
 
     /**
@@ -45,7 +72,10 @@ class HospitalController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $hospitals = Hospital::find($id);
+
+        return view('App.Hospital.show')->with('hospital',$hospitals);
     }
 
     /**
@@ -56,7 +86,9 @@ class HospitalController extends Controller
      */
     public function edit($id)
     {
-        //
+        $hospitals = Hospital::find($id);
+
+        return view('App.Hospital.edit')->with('hospital',$hospitals);
     }
 
     /**
@@ -68,7 +100,25 @@ class HospitalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'Name' => 'required',
+            'Notes' => 'nullable|max:250',
+            'Region' => 'required',
+            'SubRegion' => 'required',
+        ]);
+
+        $hospital = Hospital::find($id);
+
+        $hospital->Name = $validated['Name'];
+        $hospital->Notes = $validated['Notes'];
+        $hospital->Region = $validated['Region'];
+        $hospital->SubRegion = $validated['SubRegion'];
+
+        $hospital->save();
+
+        Session::flash("message","Hospital record was updated successfully!");
+
+        return redirect('/Hospital/'.$id);
     }
 
     /**
@@ -79,6 +129,14 @@ class HospitalController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $hospital = Hospital::find($id);
+
+        $hospital->delete();
+
+        Session::flash("message","Deleted successfully!");
+
+        $hospitals = Hospital::all();
+
+        return view('App.Hospital.index')->with('hospitals',$hospitals);
     }
 }

@@ -1,38 +1,22 @@
-<div class="sub_navigation"
-     style=
-     "
-     display: flex;
-"
->
+<div class="sub_navigation">
+    @php
+        $buttons = json_decode($buttons);
+    @endphp
     <ul>
-        <li>
-            <a href="/dashboard">Dashboard</a>
-        </li>
-        <li>
-            <a href="/Hospital">Hospital</a>
-        </li>
-        <li>
-            <a href="/Entries">Entries</a>
-        </li>
-        <li>
-            <a href="/Administrators">Administrators</a>
-        </li>
-    </ul>
-    <form action="/logout" method="POST">
-        @csrf
-        <button type="submit"  value="submit"
-                style=
-                "
-                width: 120px;
-                height: 35px;
-                border: none;
-                border-radius: 5px;
-                background-color: red;
-                margin-top: 5px;
-                color :white;
-                margin-right: 20px;
-                "
-        >Log Out</button>
 
-    </form>
+        @foreach($buttons as $buttonx)
+
+                @if(\Request::is($buttonx,$buttonx."/*"))
+                    <li>
+                        <a href="/{{ $buttonx }}"> {{$buttonx}} </a>
+                    </li>
+                @else
+                    <li>
+                        <a href="/{{ $buttonx }}"> {{$buttonx}} </a>
+                    </li>
+            @endif
+        @endforeach
+
+    </ul>
 </div>
+

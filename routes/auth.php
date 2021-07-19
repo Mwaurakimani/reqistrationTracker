@@ -17,7 +17,9 @@ Route::get('/register', [RegisteredUserController::class, 'create'])
 Route::post('/register', [RegisteredUserController::class, 'store'])
                 ->middleware('guest');
 
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+Route::get('/login', function (){
+    return view('home');
+                })
                 ->middleware('guest')
                 ->name('login');
 

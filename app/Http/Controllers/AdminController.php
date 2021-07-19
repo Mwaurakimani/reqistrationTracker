@@ -3,91 +3,133 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-
+use Session;
 use Illuminate\Http\Request;
-
-use Illuminate\Support\Facades\Redirect;
 
 class AdminController extends Controller
 {
-    public function get_all()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
+        $Administrators = User::all();
 
-        //get all users
-        $users = User::all();
-
-
-        //send the message to the responding view
-        return view('Administrators', [
-            'heading' => "Administrators",
-            'users' => $users
-        ]);
-
+        return view('App.Administrators.index')->with('Administrators',$Administrators);
     }
 
-    public function show($id)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        //get all user
-        $user = User::find($id);
-
-        //send the user data to the responding view
-        return view('forms.AdminForm', [
-            'heading' => "Administrators",
-            'user' => $user
-        ]);
-
-
+        return view('App.Administrators.create');
     }
 
-    public function store(Request $request, $id = null)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
-
-        //validate the data
         $validated = $request->validate([
-            'firstName' => 'required|max:255',
+            'firstName' => 'required',
             'lastName' => 'required',
             'email' => 'required|email',
             'Role' => 'required',
-            'hospital' => 'nullable'
+            'Notes' => 'nullable|max:250',
         ]);
 
-//        TODO:: test if this rout renders the right navigation
+        $user = new User();
 
+        $user->firstName = $validated["firstName"];
+        $user->lastName = $validated["lastName"];
+        $user->email = $validated["email"];
+        $user->Role = $validated["Role"];
+        $user->Notes = $validated["Notes"];
+        $user->password = bcrypt("password");
 
+        $user->save();
 
+        Session::flash("message","User record was added successfully!");
 
-        if (!isset($id)) {
-            $password = bcrypt("password");
-            $validated["password"] = $password;
-            $user = User::create($validated);
+        return redirect('/Administrators');
 
-            return redirect()->action(
-                [AdminController::class,'show'],
-                ['id' => 1],
-                ['heading' => "Administrator"]
-            ) ;
-        } else {
-            $user = User::find($id);
-
-//            TODO::check if you can simplify this in recurring sites
-
-            $user->firstName = $request->input('firstName');
-            $user->lastName = $request->input('lastName');
-            $user->email = $request->input('email');
-            $user->Role = $request->input('Role');
-
-            $user->save();
-        }
-
-
-        session()->flash('success', 'Updated');
-
-        return redirec()->action(
-            [AdminController::class,'show'],
-            ['id' => 1],
-            ['heading' => "Administrator"]
-        );
 
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $Administrators = User::find($id);
+
+        return view('App.Administrators.show')->with('Administrators',$Administrators);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $Administrators = User::find($id);
+
+        return view('App.Administrators.edit')->with('Administrators',$Administrators);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'firstName' => 'required',
+            'lastName' => 'required',
+            'email' => 'required|email',
+            'Role' => 'required',
+            'Notes' => 'nullable|max:250',
+        ]);
+
+        $user = User::find($id);
+
+        $user->firstName = $validated["firstName"];
+        $user->lastName = $validated["lastName"];
+        $user->email = $validated["email"];
+        $user->Role = $validated["Role"];
+        $user->Notes = $validated["Notes"];
+
+        $user->save();
+
+        Session::flash("message","User record was updated successfully!");
+
+        return redirect('/Administrators');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        dd("disable");
+    }
 }

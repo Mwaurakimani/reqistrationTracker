@@ -1,14 +1,13 @@
-@extends('layouts.mylayouts.app',[
-    'cssName'=>'css/compiled/dashboard.css'
+@extends('layouts.dashboard',[
+    'page_title'=>"dashboard",
+    'custom_css'=>"dashboard.css"
 ])
 
 
 @section('content')
-    <x-my-nav :heading="$heading">
-    </x-my-nav>
+    <x-content-heading :name="'Dashboard'"/>
 
-    <x-sub-nav>
-    </x-sub-nav>
+    <x-sub-nav :buttons="$nav_buttons" />
 
     <form class="filter_bar">
         <div class="select_field">
@@ -104,5 +103,6 @@
 
         </div> -->
     </div>
-
 @endsection
+
+

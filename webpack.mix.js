@@ -12,8 +12,7 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .js('resources/js/app_js/index.js' ,'public/app/js')
-    .sass('resources/scss/index.scss', 'public/app_css/css')
+    .sass('resources/scss/app.scss', 'public/css/app')
     .postCss('resources/css/app.css', 'public/css', [
     require('postcss-import'),
     require('tailwindcss'),

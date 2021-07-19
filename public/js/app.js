@@ -3792,79 +3792,34 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./resources/js/app.js":
-/*!*****************************!*\
-  !*** ./resources/js/app.js ***!
-  \*****************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
-
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-
-__webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
-
-__webpack_require__(/*! ./live */ "./resources/js/live.js");
-
-/***/ }),
-
-/***/ "./resources/js/bootstrap.js":
-/*!***********************************!*\
-  !*** ./resources/js/bootstrap.js ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
-
-window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
- */
-
-window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-// import Echo from 'laravel-echo';
-// window.Pusher = require('pusher-js');
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     forceTLS: true
-// });
-
-/***/ }),
-
-/***/ "./resources/js/live.js":
-/*!******************************!*\
-  !*** ./resources/js/live.js ***!
-  \******************************/
+/***/ "./resources/js/Dev/live.js":
+/*!**********************************!*\
+  !*** ./resources/js/Dev/live.js ***!
+  \**********************************/
 /***/ (() => {
 
 /*
-   Live.js - One script closer to Designing in the Browser
-   Written for Handcraft.com by Martin Kool (@mrtnkl).
+ Live.js - One script closer to Designing in the Browser
+ Written for Handcraft.com by Martin Kool (@mrtnkl).
 
-   Version 4.
-   Recent change: Made stylesheet and mimetype checks case insensitive.
+ Version 4.
+ Recent change: Made stylesheet and mimetype checks case insensitive.
 
-   http://livejs.com
-   http://livejs.com/license (MIT)
-   @livejs
+ http://livejs.com
+ http://livejs.com/license (MIT)
+ @livejs
 
-   Include live.js#css to monitor css changes only.
-   Include live.js#js to monitor js changes only.
-   Include live.js#html to monitor html changes only.
-   Mix and match to monitor a preferred combination such as live.js#html,css
+ Include live.js#css to monitor css changes only.
+ Include live.js#js to monitor js changes only.
+ Include live.js#html to monitor html changes only.
+ Mix and match to monitor a preferred combination such as live.js#html,css
 
-   By default, just include live.js to monitor all css, js and html changes.
+ By default, just include live.js to monitor all css, js and html changes.
 
-   Live.js can also be loaded as a bookmarklet. It is best to only use it for CSS then,
-   as a page reload due to a change in html or css would not re-include the bookmarklet.
-   To monitor CSS and be notified that it has loaded, include it as: live.js#css,notify
- */
+ Live.js can also be loaded as a bookmarklet. It is best to only use it for CSS then,
+ as a page reload due to a change in html or css would not re-include the bookmarklet.
+ To monitor CSS and be notified that it has loaded, include it as: live.js#css,notify
+*/
 (function () {
   var headers = {
     "Etag": 1,
@@ -4082,6 +4037,56 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     window.liveJsLoaded = true;
   } else if (window.console) console.log("Live.js doesn't support the file protocol. It needs http.");
 })();
+
+/***/ }),
+
+/***/ "./resources/js/app.js":
+/*!*****************************!*\
+  !*** ./resources/js/app.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+__webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
+
+__webpack_require__(/*! ./Dev/live.js */ "./resources/js/Dev/live.js");
+
+var elem = $('.alert-success');
+setTimeout(function () {
+  elem.fadeOut("slow");
+}, 2000);
+
+/***/ }),
+
+/***/ "./resources/js/bootstrap.js":
+/*!***********************************!*\
+  !*** ./resources/js/bootstrap.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/**
+ * We'll load the axios HTTP library which allows us to easily issue requests
+ * to our Laravel back-end. This library automatically handles sending the
+ * CSRF token as a header based on the value of the "XSRF" token cookie.
+ */
+
+window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+/**
+ * Echo exposes an expressive API for subscribing to channels and listening
+ * for events that are broadcast by Laravel. Echo and event broadcasting
+ * allows your team to easily build robust real-time web applications.
+ */
+// import Echo from 'laravel-echo';
+// window.Pusher = require('pusher-js');
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: process.env.MIX_PUSHER_APP_KEY,
+//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+//     forceTLS: true
+// });
 
 /***/ }),
 
@@ -21297,10 +21302,10 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
-/***/ "./resources/scss/index.scss":
-/*!***********************************!*\
-  !*** ./resources/scss/index.scss ***!
-  \***********************************/
+/***/ "./resources/scss/app.scss":
+/*!*********************************!*\
+  !*** ./resources/scss/app.scss ***!
+  \*********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -21628,7 +21633,7 @@ process.umask = function() { return 0; };
 /******/ 		var installedChunks = {
 /******/ 			"/js/app": 0,
 /******/ 			"css/app": 0,
-/******/ 			"app_css/css/index": 0
+/******/ 			"css/app/app": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -21676,9 +21681,9 @@ process.umask = function() { return 0; };
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/app","app_css/css/index"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","app_css/css/index"], () => (__webpack_require__("./resources/scss/index.scss")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app","app_css/css/index"], () => (__webpack_require__("./resources/css/app.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/app/app"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/app/app"], () => (__webpack_require__("./resources/scss/app.scss")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app","css/app/app"], () => (__webpack_require__("./resources/css/app.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
